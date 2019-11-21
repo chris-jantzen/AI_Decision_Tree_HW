@@ -45,9 +45,10 @@ def create_graph(coords, pred):
             pred1x.append(coords[i][0])
             pred1y.append(coords[i][1])
 
-    plt.plot(pred0x, pred0y, 'rs', pred1x, pred1y, 'bs')
+    plt.plot(pred0x, pred0y, 'ks', pred1x, pred1y, 'rs')
     plt.xlabel('x')
     plt.ylabel('y')
+    plt.title('Decision Tree Predictions')
     plt.axis([0, 50, 0, 50])
     plt.show()
 
