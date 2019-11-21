@@ -32,23 +32,7 @@ def build_50_by_50():
     return lst
 
 
-def get_x_coords(coords):
-    x_coords = []
-    for coord in coords:
-        x_coords.append(coord[0])
-    return x_coords
-
-
-def get_y_coords(coords):
-    y_coords = []
-    for coord in coords:
-        y_coords.append(coord[1])
-    return y_coords
-
-
 def create_graph(coords, pred):
-    # x_coords = get_x_coords(coords)
-    # y_coords = get_y_coords(coords)
     pred0x = []
     pred0y = []
     pred1x = []
