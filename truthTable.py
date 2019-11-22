@@ -1,9 +1,10 @@
 from pandas import read_excel
 from random import sample
 from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeClassifier, export_graphviz
 from sklearn.metrics import classification_report, confusion_matrix
 import matplotlib.pyplot as plt
+import graphviz
 
 
 def read_data():
@@ -32,7 +33,7 @@ def build_50_by_50():
     return lst
 
 
-def create_graph(coords, pred):
+def sort_pred(coords, pred):
     pred0x = []
     pred0y = []
     pred1x = []
@@ -44,6 +45,11 @@ def create_graph(coords, pred):
         else:
             pred1x.append(coords[i][0])
             pred1y.append(coords[i][1])
+    return (pred0x, pred0y, pred1x, pred1y)
+
+
+def create_graph(coords, pred):
+    pred0x, pred0y, pred1x, pred1y = sort_pred(coords, pred)
 
     plt.plot(pred0x, pred0y, 'ks', pred1x, pred1y, 'rs')
     plt.xlabel('x')
@@ -66,10 +72,19 @@ def main():
     print(confusion_matrix(y_test, y_pred))
     print(classification_report(y_test, y_pred))
 
+    dot_data = export_graphviz(classifier, out_file=None, feature_names=[
+                               'X', 'Y'], class_names=['0', '1'])
+    graph = graphviz.Source(dot_data)
+    graph.render("iris")
+
     n_test = build_50_by_50()
     n_pred = classifier.predict(n_test)
 
+    m_test = data_sets
+    m_pred = classifier.predict(m_test)
+
     create_graph(n_test, n_pred)
+    create_graph(m_test, m_pred)
 
 
 if __name__ == "__main__":
